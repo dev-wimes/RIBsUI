@@ -7,7 +7,6 @@
 
 import RIBs
 import RxSwift
-import UIKit
 import SwiftUI
 
 final class RootViewController<Content: View>: UIHostingController<Content>, RootViewControllable {
@@ -20,5 +19,4 @@ final class RootViewController<Content: View>: UIHostingController<Content>, Roo
   @MainActor required dynamic init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
 }

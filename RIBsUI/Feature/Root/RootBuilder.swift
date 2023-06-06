@@ -14,7 +14,7 @@ protocol RootDependency: Dependency {
 
 final class RootComponent: Component<RootDependency>,
                            RootInteractorDependency,
-                           UsersDependency {
+                           UserDependency {
   
 }
 
@@ -37,12 +37,12 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
     let viewController = RootViewController(rootView: RootView(interactor: interactor))
     let navigationViewController = NavigationControllerable(root: viewController)
     
-    let usersBuilder = UsersBuilder(dependency: component)
+    let userBuilder = UserBuilder(dependency: component)
     
     return RootRouter(
       interactor: interactor,
       viewController: navigationViewController,
-      usersBuilder: usersBuilder
+      userBuilder: userBuilder
     )
   }
 }

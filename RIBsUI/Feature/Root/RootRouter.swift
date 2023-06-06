@@ -7,7 +7,7 @@
 
 import RIBs
 
-protocol RootInteractable: Interactable, UsersListener {
+protocol RootInteractable: Interactable, UserListener {
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }
@@ -18,15 +18,15 @@ protocol RootViewControllable: ViewControllable {
 
 final class RootRouter: LaunchRouter<RootInteractable, ViewControllable>, RootRouting {
   
-  private var usersRouter: UsersRouting?
-  private let usersBuilder: UsersBuildable
+  private var userRouter: UserRouting?
+  private let userBuilder: UserBuildable
   
   init(
     interactor: RootInteractable,
     viewController: ViewControllable,
-    usersBuilder: UsersBuildable
+    userBuilder: UserBuildable
   ) {
-    self.usersBuilder = usersBuilder
+    self.userBuilder = userBuilder
     
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
@@ -34,21 +34,21 @@ final class RootRouter: LaunchRouter<RootInteractable, ViewControllable>, RootRo
 }
 
 extension RootRouter {
-  func attachUsers() {
-    if self.usersRouter != nil { return }
+  func attachUser() {
+    if self.userRouter != nil { return }
     
-    let router = self.usersBuilder.build(withListener: self.interactor)
-    self.usersRouter = router
+    let router = self.userBuilder.build(withListener: self.interactor)
+    self.userRouter = router
     self.attachChild(router)
     
     self.viewController.pushViewController(router.viewControllable, animated: true)
   }
   
-  func detachUsers() {
-    guard let router = self.usersRouter else { return }
+  func detachUser() {
+    guard let router = self.userRouter else { return }
     
     self.detachChild(router)
-    self.usersRouter = nil
+    self.userRouter = nil
     self.viewController.popViewController(animated: true)
   }
 }

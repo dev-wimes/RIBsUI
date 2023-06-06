@@ -10,7 +10,8 @@ import RxSwift
 import SwiftUI
 
 protocol RootRouting: ViewableRouting {
-  func attachUsers()
+  func attachUser()
+  func detachUser()
 }
 
 protocol RootListener: AnyObject { }
@@ -45,7 +46,13 @@ extension RootInteractor {
   func send(_ action: Action) {
     switch action {
     case .didTapText:
-      self.router?.attachUsers()
+      self.router?.attachUser()
     }
+  }
+}
+
+extension RootInteractor {
+  func detachUser() {
+    self.router?.detachUser()
   }
 }
